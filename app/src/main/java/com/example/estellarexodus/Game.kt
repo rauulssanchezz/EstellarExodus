@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
+import kotlin.random.Random
 
 class Game : AppCompatActivity() {
     private lateinit var shipImage: ImageView
@@ -21,6 +22,7 @@ class Game : AppCompatActivity() {
     private var wakeLock: PowerManager.WakeLock? = null
     private lateinit var reload: Button
     private lateinit var finish: CardView
+    private lateinit var coinsAndStars:CoinsAndPoints
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,15 +51,18 @@ class Game : AppCompatActivity() {
         shipImage = findViewById(R.id.ship)
         val ship=Ship(resources,shipImage,resources.getDimensionPixelSize(R.dimen.width),resources.getDimensionPixelSize(R.dimen.height))
         GameStateManager.initializeShip(ship)
-
-        //Meteorites
-        initializeMeteorites(context)
         ship.ship.setOnTouchListener { _, event ->
             ship.handleTouch(event)
         }
 
+        //Meteorites
+        initializeMeteorites(context)
+
+        coinsAndStars=CoinsAndPoints(context)
+
         // Set up a timer to launch meteorites periodically.
         handler.postDelayed(run(context), time)
+        handler.postDelayed(coinsAndStars(context),5000)
 
         finish=findViewById(R.id.finish)
         reload=findViewById(R.id.reload)
@@ -97,6 +102,25 @@ class Game : AppCompatActivity() {
                 }else{
                     handler.removeCallbacks(this)
                     handlePlayerLoss()
+                }
+            }
+        }
+        return runnable
+    }
+
+    fun coinsAndStars(context: Context):Runnable{
+        val runnable=object :Runnable{
+            override fun run() {
+                var random=Random.nextInt(0,2)
+                if (GameStateManager.running){
+                    if (random==0) {
+                        coinsAndStars.setCoin(mainLayout)
+                    }else{
+                        coinsAndStars.setStar(mainLayout)
+                    }
+                    handler.postDelayed(this,15000)
+                }else{
+                    handler.removeCallbacks(this)
                 }
             }
         }

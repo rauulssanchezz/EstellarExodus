@@ -31,7 +31,7 @@ class Meteorite (val res: Resources, val meteorite: ImageView, var width: Int, v
         meteoriteClone.y = - heigh.toFloat()
 
         // Add the meteorite to the main layout.
-        mainLayout.addView(meteoriteClone)
+        mainLayout.addView(meteoriteClone,0)
 
         // Animate the meteorite downward.
         val animation = ObjectAnimator.ofFloat(
