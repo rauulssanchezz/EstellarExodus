@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">EstellarExodus</string>
+    <string name="start">INICIAR</string>
+    <string name="monedas">MONEDAS:</string>
+    <string name="reiniciar">REINICIAR</string>
+    <string name="puntuaci_n">PUNTUACIÓN:</string>
+    <string name="game_over">GAME OVER</string>
+</resources>
