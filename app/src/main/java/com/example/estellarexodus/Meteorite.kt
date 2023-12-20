@@ -32,6 +32,7 @@ class Meteorite (val res: Resources, val meteorite: ImageView, var width: Int, v
 
         // Add the meteorite to the main layout.
         mainLayout.addView(meteoriteClone,0)
+        meteoriteClone.bringToFront()
 
         // Animate the meteorite downward.
         val animation = ObjectAnimator.ofFloat(
@@ -47,7 +48,7 @@ class Meteorite (val res: Resources, val meteorite: ImageView, var width: Int, v
 
             if (CheckColisions.checkCollisionWithMeteorite(newPosition)) {
                 mainLayout.removeView(meteoriteClone)
-                CheckColisions.handleCollisionDuringAnimation()
+                CheckColisions.handleCollisionWithMeteorite()
             }
         }
         animation.addListener(object : AnimatorListenerAdapter() {

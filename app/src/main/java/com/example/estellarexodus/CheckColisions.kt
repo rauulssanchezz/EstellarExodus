@@ -1,10 +1,11 @@
 package com.example.estellarexodus
 
 import android.graphics.Rect
+import java.text.FieldPosition
 
 class CheckColisions {
     companion object {
-        fun handleCollisionDuringAnimation() {
+        fun handleCollisionWithMeteorite() {
             val ship = GameStateManager.ship
             ship!!.ship.setImageResource(R.drawable.explosion)
             GameStateManager.stopRunning()

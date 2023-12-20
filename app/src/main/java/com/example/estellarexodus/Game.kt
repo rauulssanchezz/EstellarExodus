@@ -62,7 +62,7 @@ class Game : AppCompatActivity() {
 
         // Set up a timer to launch meteorites periodically.
         handler.postDelayed(run(context), time)
-        handler.postDelayed(coinsAndStars(context),5000)
+        handler.postDelayed(coinsAndStars(),5000)
 
         finish=findViewById(R.id.finish)
         reload=findViewById(R.id.reload)
@@ -95,7 +95,7 @@ class Game : AppCompatActivity() {
         val runnable=object : Runnable {
             override fun run() {
                 if (GameStateManager.running) {
-                    var pos = kotlin.random.Random.nextInt(0, meteorites.size)
+                    var pos = Random.nextInt(0, meteorites.size)
                     meteorites[pos].launchMeteorite(mainLayout, context)
                     updateTime()
                     handler.postDelayed(this, time)
@@ -108,7 +108,7 @@ class Game : AppCompatActivity() {
         return runnable
     }
 
-    fun coinsAndStars(context: Context):Runnable{
+    fun coinsAndStars():Runnable{
         val runnable=object :Runnable{
             override fun run() {
                 var random=Random.nextInt(0,2)
