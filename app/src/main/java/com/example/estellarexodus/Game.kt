@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import kotlin.random.Random
 
@@ -23,6 +24,8 @@ class Game : AppCompatActivity() {
     private lateinit var reload: Button
     private lateinit var finish: CardView
     private lateinit var coinsAndStars:CoinsAndPoints
+    private var points=0
+    private lateinit var pointsView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,11 +61,14 @@ class Game : AppCompatActivity() {
         //Meteorites
         initializeMeteorites(context)
 
+        //Points and coins
+        pointsView=findViewById(R.id.pointsView)
         coinsAndStars=CoinsAndPoints(context)
 
         // Set up a timer to launch meteorites periodically.
         handler.postDelayed(run(context), time)
         handler.postDelayed(coinsAndStars(),5000)
+        handler.postDelayed(updatePoints(),0)
 
         finish=findViewById(R.id.finish)
         reload=findViewById(R.id.reload)
@@ -77,6 +83,19 @@ class Game : AppCompatActivity() {
             time -= 5
         }
         return time
+    }
+
+    fun updatePoints():Runnable{
+        val sumPoints=object :Runnable {
+            override fun run() {
+                if (GameStateManager.running){
+                    points += 1
+                    pointsView.text=points.toString()
+                    handler.postDelayed(this,1)
+                }
+            }
+        }
+        return sumPoints
     }
 
     fun initializeMeteorites(context: Context){
@@ -129,6 +148,9 @@ class Game : AppCompatActivity() {
 
     //Logic when the player loses.
     private fun handlePlayerLoss() {
+        MyMediaPlayer.pauseSong()
+        MyMediaPlayer.loadSong(applicationContext,R.raw.impact)
+        MyMediaPlayer.startSong()
         finish.postDelayed({finish.visibility= View.VISIBLE},500)
     }
 

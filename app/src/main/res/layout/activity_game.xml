@@ -8,6 +8,19 @@
     android:background="@drawable/gamebackground"
     >
 
+    <TextView
+        android:id="@+id/pointsView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text=""
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        />
     <ImageView
         android:id="@+id/background"
         android:layout_width="match_parent"
