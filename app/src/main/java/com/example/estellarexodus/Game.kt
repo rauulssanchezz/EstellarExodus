@@ -22,8 +22,6 @@ class Game : AppCompatActivity() {
     private val handler = Handler()
     var time:Long=650
     private var wakeLock: PowerManager.WakeLock? = null
-    private lateinit var reload: Button
-    private lateinit var finish: CardView
     private lateinit var coinsAndStars:CoinsAndPoints
     private var points=0
     private lateinit var pointsView: TextView
@@ -33,6 +31,7 @@ class Game : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
+        GameStateManager.running=true
         var initialText=findViewById<TextView>(R.id.initialText)
         var touchImage=findViewById<ImageView>(R.id.touchImage)
         val context=this
@@ -126,14 +125,6 @@ class Game : AppCompatActivity() {
         }
 
         handler.postDelayed(runnableMain,0)
-
-        finish = findViewById(R.id.finish)
-        reload = findViewById(R.id.reload)
-
-        reload.setOnClickListener {
-            GameStateManager.running = true
-            recreate()
-        }
     }
     fun updateTime(): Long {
         if (time>150) {
@@ -197,7 +188,6 @@ class Game : AppCompatActivity() {
                     handler.postDelayed(this,5000)
                 }else{
                     handler.removeCallbacks(this)
-                    handlePlayerLoss()
                 }
             }
         }
@@ -206,10 +196,13 @@ class Game : AppCompatActivity() {
 
     //Logic when the player loses.
     private fun handlePlayerLoss() {
-        MyMediaPlayer.pauseSong()
-        MyMediaPlayer.loadSong(applicationContext,R.raw.impact)
-        MyMediaPlayer.startSong()
-        finish.postDelayed({finish.visibility= View.VISIBLE},500)
+        val newIntent = Intent(this, FinishGame::class.java)
+        val run = object :Runnable {
+            override fun run() {
+                startActivity(newIntent)
+            }
+        }
+        handler.postDelayed(run,200)
     }
 
     override fun onResume() {
