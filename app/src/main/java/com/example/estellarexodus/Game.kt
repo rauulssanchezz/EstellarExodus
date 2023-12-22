@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.view.allViews
 import kotlin.random.Random
 
 class Game : AppCompatActivity() {
@@ -196,6 +197,7 @@ class Game : AppCompatActivity() {
                     handler.postDelayed(this,5000)
                 }else{
                     handler.removeCallbacks(this)
+                    handlePlayerLoss()
                 }
             }
         }
