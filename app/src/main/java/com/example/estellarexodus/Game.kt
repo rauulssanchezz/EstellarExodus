@@ -26,11 +26,14 @@ class Game : AppCompatActivity() {
     private lateinit var coinsAndStars:CoinsAndPoints
     private var points=0
     private lateinit var pointsView: TextView
+    var firstTouch=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
+        var initialText=findViewById<TextView>(R.id.initialText)
+        var touchImage=findViewById<ImageView>(R.id.touchImage)
         val context=this
         // Get an instance of the PowerManager.
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
@@ -45,6 +48,44 @@ class Game : AppCompatActivity() {
         //MainFrameView
         mainLayout = findViewById(R.id.mainLayout)
 
+        val runnable=object :Runnable{
+            override fun run() {
+                initialText.animate().apply {
+                    scaleX(0.9f)
+                    scaleY(0.9f)
+                    duration = 1000
+                }.withEndAction {
+                    initialText.animate().apply {
+                        scaleX(1f)
+                        scaleY(1f)
+                        duration = 1000
+                    }
+                }
+                touchImage.animate().apply {
+                    scaleX(0.9f)
+                    scaleY(0.9f)
+                    duration = 1000
+                }.withEndAction {
+                    touchImage.animate().apply {
+                        scaleX(1f)
+                        scaleY(1f)
+                        duration = 1000
+                    }
+                }
+                if (!firstTouch) {
+                    handler.postDelayed(this, 2000)
+                }
+            }
+        }
+
+        mainLayout.setOnClickListener{
+            mainLayout.removeView(initialText)
+            mainLayout.removeView(touchImage)
+            firstTouch=true
+        }
+
+        handler.postDelayed(runnable,0)
+
         //Music
         MyMediaPlayer.loadSong(this, R.raw.gamemusic1)
         MyMediaPlayer.startSong()
@@ -52,8 +93,11 @@ class Game : AppCompatActivity() {
 
         //Ship
         shipImage = findViewById(R.id.ship)
-        val ship=Ship(resources,shipImage,resources.getDimensionPixelSize(R.dimen.width),resources.getDimensionPixelSize(R.dimen.height))
+        val ship = Ship(
+            resources, shipImage, resources.getDimensionPixelSize(R.dimen.height)
+        )
         GameStateManager.initializeShip(ship)
+
         ship.ship.setOnTouchListener { _, event ->
             ship.handleTouch(event)
         }
@@ -62,19 +106,31 @@ class Game : AppCompatActivity() {
         initializeMeteorites(context)
 
         //Points and coins
-        pointsView=findViewById(R.id.pointsView)
-        coinsAndStars=CoinsAndPoints(context)
+        pointsView = findViewById(R.id.pointsView)
+        coinsAndStars = CoinsAndPoints(context)
 
-        // Set up a timer to launch meteorites periodically.
-        handler.postDelayed(run(context), time)
-        handler.postDelayed(coinsAndStars(),5000)
-        handler.postDelayed(updatePoints(),0)
+        val runnableMain=object :Runnable{
+            var cont=0
+            override fun run() {
+                if (firstTouch && cont==0) {
+                    // Set up a timer to launch meteorites periodically.
+                    handler.postDelayed(run(context), time)
+                    handler.postDelayed(coinsAndStars(), 5000)
+                    handler.postDelayed(updatePoints(), 0)
+                    shipImage.focusable=View.FOCUSABLE
+                    cont++
+                }
+                handler.postDelayed(this,16)
+            }
+        }
 
-        finish=findViewById(R.id.finish)
-        reload=findViewById(R.id.reload)
+        handler.postDelayed(runnableMain,0)
+
+        finish = findViewById(R.id.finish)
+        reload = findViewById(R.id.reload)
 
         reload.setOnClickListener {
-            GameStateManager.running=true
+            GameStateManager.running = true
             recreate()
         }
     }

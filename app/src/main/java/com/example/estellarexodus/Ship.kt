@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory
 import android.view.MotionEvent
 import android.widget.ImageView
 
-class Ship (val res: Resources,val ship: ImageView,var width: Int, var height: Int) {
+class Ship (res: Resources,val ship: ImageView, var height: Int) {
     init {
         GameStateManager.ship = this
         val bitmap = BitmapFactory.decodeResource(res,R.drawable.ship1)
