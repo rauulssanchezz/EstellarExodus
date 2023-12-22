@@ -137,7 +137,7 @@ class Game : AppCompatActivity() {
                     }else{
                         coinsAndStars.setStar(mainLayout)
                     }
-                    handler.postDelayed(this,15000)
+                    handler.postDelayed(this,5000)
                 }else{
                     handler.removeCallbacks(this)
                 }
