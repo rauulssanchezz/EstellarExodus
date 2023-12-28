@@ -24,4 +24,11 @@ class FinishGame : AppCompatActivity() {
             startActivity(newIntent)
         }
     }
+
+    override fun onBackPressed() {
+        var newIntent=Intent(this,Start::class.java)
+        startActivity(newIntent)
+        super.onBackPressed()
+    }
+
 }

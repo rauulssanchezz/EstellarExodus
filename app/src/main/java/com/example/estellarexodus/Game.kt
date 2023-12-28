@@ -135,8 +135,8 @@ class Game : AppCompatActivity() {
         val sumPoints=object :Runnable {
             override fun run() {
                 if (GameStateManager.running){
-                    points += 1
-                    pointsView.text=points.toString()
+                    GameStateManager.points += 1
+                    pointsView.text=GameStateManager.points.toString()
                     handler.postDelayed(this,1)
                 }
             }
@@ -197,7 +197,6 @@ class Game : AppCompatActivity() {
         val newIntent = Intent(this, FinishGame::class.java)
         val run = object :Runnable {
             override fun run() {
-                GameStateManager.savePoints(points)
                 startActivity(newIntent)
             }
         }

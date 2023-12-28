@@ -1,5 +1,6 @@
 package com.example.estellarexodus
 
+import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
@@ -7,6 +8,7 @@ import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -107,20 +109,16 @@ class CoinsAndPoints(context: Context) {
     }
 
     private fun startCollisionChecking(view: View, mainLayout: ViewGroup,star:Boolean) {
-        handler.post(collisionChecking(view, mainLayout))
-        if (star){
-
-            GameStateManager.points+=100
-        }
+        handler.post(collisionChecking(view, mainLayout,star))
     }
 
-    private fun collisionChecking(view: View, mainLayout: ViewGroup): Runnable {
+    private fun collisionChecking(view: View, mainLayout: ViewGroup,star: Boolean): Runnable {
         val runnable = object : Runnable {
             override fun run() {
                 if (view.parent != null) {
                     if (checkCollisionWithShip(view)) {
                         // Manejar colisión con la nave
-                        handleCollisionWithShip(mainLayout,view)
+                        handleCollisionWithShip(mainLayout,view,star)
                     }
                     handler.postDelayed(this, 16) // Verificar colisión cada 16 milisegundos (aproximadamente 60 FPS)
                 }
@@ -144,7 +142,35 @@ class CoinsAndPoints(context: Context) {
         return shipBounds
     }
 
-    private fun handleCollisionWithShip(mainLayout: ViewGroup,view: View) {
+    private fun handleCollisionWithShip(mainLayout: ViewGroup,view: View,star:Boolean) {
         mainLayout.removeView(view)
+        if (star) {
+            var newView = TextView(context)
+            newView.text = "+100"
+            GameStateManager.points += 100
+            newView.x = view.x
+            newView.y = view.y
+
+            handler.post(animationPoints(newView))
+
+            mainLayout.addView(newView)
+
+            GlobalScope.launch {
+                delay(1000)
+                (context as? Activity)?.runOnUiThread {
+                    mainLayout.removeView(newView)
+                }
+            }
+        }
+    }
+
+    private fun animationPoints(newView:View):Runnable{
+        val run = object :Runnable{
+            override fun run() {
+                newView.y=newView.y-1
+                handler.postDelayed(this,8)
+            }
+        }
+        return run
     }
 }
