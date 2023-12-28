@@ -38,7 +38,7 @@ class CoinsAndPoints(context: Context) {
 
         startAnimationLoop(coinClone, mainLayout)
 
-        startCollisionChecking(coinClone, mainLayout)
+        startCollisionChecking(coinClone, mainLayout,false)
 
         GlobalScope.launch {
             delay(20000)
@@ -59,7 +59,7 @@ class CoinsAndPoints(context: Context) {
 
         startAnimationLoop(starClone, mainLayout)
 
-        startCollisionChecking(starClone, mainLayout)
+        startCollisionChecking(starClone, mainLayout,true)
 
         GlobalScope.launch {
             delay(20000)
@@ -106,8 +106,12 @@ class CoinsAndPoints(context: Context) {
         }
     }
 
-    private fun startCollisionChecking(view: View, mainLayout: ViewGroup) {
+    private fun startCollisionChecking(view: View, mainLayout: ViewGroup,star:Boolean) {
         handler.post(collisionChecking(view, mainLayout))
+        if (star){
+
+            GameStateManager.points+=100
+        }
     }
 
     private fun collisionChecking(view: View, mainLayout: ViewGroup): Runnable {

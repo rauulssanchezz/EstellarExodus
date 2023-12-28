@@ -25,13 +25,11 @@ class Game : AppCompatActivity() {
     private lateinit var coinsAndStars:CoinsAndPoints
     private var points=0
     private lateinit var pointsView: TextView
-    var firstTouch=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
-        GameStateManager.running=true
         var initialText=findViewById<TextView>(R.id.initialText)
         var touchImage=findViewById<ImageView>(R.id.touchImage)
         val context=this
@@ -72,7 +70,7 @@ class Game : AppCompatActivity() {
                         duration = 1000
                     }
                 }
-                if (!firstTouch) {
+                if (!GameStateManager.firstTouch) {
                     handler.postDelayed(this, 2000)
                 }
             }
@@ -81,7 +79,7 @@ class Game : AppCompatActivity() {
         mainLayout.setOnClickListener{
             mainLayout.removeView(initialText)
             mainLayout.removeView(touchImage)
-            firstTouch=true
+            GameStateManager.firstTouch=true
         }
 
         handler.postDelayed(runnable,0)
@@ -112,10 +110,10 @@ class Game : AppCompatActivity() {
         val runnableMain=object :Runnable{
             var cont=0
             override fun run() {
-                if (firstTouch && cont==0) {
+                if (GameStateManager.firstTouch && cont==0) {
                     // Set up a timer to launch meteorites periodically.
                     handler.postDelayed(run(context), time)
-                    handler.postDelayed(coinsAndStars(), 5000)
+                    handler.postDelayed(coinsAndStars(), 3500)
                     handler.postDelayed(updatePoints(), 0)
                     shipImage.focusable=View.FOCUSABLE
                     cont++
@@ -178,7 +176,7 @@ class Game : AppCompatActivity() {
     fun coinsAndStars():Runnable{
         val runnable=object :Runnable{
             override fun run() {
-                var random=Random.nextInt(0,2)
+                var random=Random.nextInt(0,4)
                 if (GameStateManager.running){
                     if (random==0) {
                         coinsAndStars.setCoin(mainLayout)
@@ -199,6 +197,7 @@ class Game : AppCompatActivity() {
         val newIntent = Intent(this, FinishGame::class.java)
         val run = object :Runnable {
             override fun run() {
+                GameStateManager.savePoints(points)
                 startActivity(newIntent)
             }
         }

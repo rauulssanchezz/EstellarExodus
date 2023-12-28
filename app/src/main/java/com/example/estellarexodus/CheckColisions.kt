@@ -16,9 +16,9 @@ class CheckColisions {
             ship!!.ship.getHitRect(shipBounds)
 
             val meteoriteBounds = Rect()
-            meteoriteBounds.left = meteoritePosition.first.toInt()+90
-            meteoriteBounds.top = meteoritePosition.second.toInt()+20
-            meteoriteBounds.right = meteoritePosition.first.toInt()+20
+            meteoriteBounds.left = meteoritePosition.first.toInt()+110
+            meteoriteBounds.top = meteoritePosition.second.toInt()
+            meteoriteBounds.right = meteoritePosition.first.toInt()+25
             meteoriteBounds.bottom = meteoriteBounds.top + ship!!.height
 
             return Rect.intersects(shipBounds, meteoriteBounds)

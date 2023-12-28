@@ -12,13 +12,13 @@ class Ship (res: Resources,val ship: ImageView, var height: Int) {
         ship.setImageBitmap(bitmap)
     }
     fun handleTouch(event: MotionEvent): Boolean {
-        if (GameStateManager.running) {
+        if (GameStateManager.running && GameStateManager.firstTouch) {
             when (event.action) {
                 MotionEvent.ACTION_MOVE -> {
                     val centerX = ship.width / 2f
-                    val centerY = ship.height / 2f
+                    val centerY = ship.height*2
                     ship.x = event.rawX - centerX
-                    ship.y = event.rawY - centerY
+                    ship.y = event.rawY -centerY
 
                 }
             }
