@@ -16,10 +16,9 @@ class Ship (res: Resources,val ship: ImageView, var height: Int) {
             when (event.action) {
                 MotionEvent.ACTION_MOVE -> {
                     val centerX = ship.width / 2f
-                    val centerY = ship.height*2
+                    val centerY = ship.height
                     ship.x = event.rawX - centerX
-                    ship.y = event.rawY -centerY
-
+                    ship.y = event.rawY -centerY-150
                 }
             }
             return true
