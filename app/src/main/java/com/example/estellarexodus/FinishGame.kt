@@ -20,6 +20,7 @@ class FinishGame : AppCompatActivity() {
         reload.setOnClickListener {
             GameStateManager.firstTouch=false
             GameStateManager.running=true
+            GameStateManager.points=0
             val newIntent= Intent(this,Game::class.java)
             startActivity(newIntent)
         }
@@ -27,6 +28,9 @@ class FinishGame : AppCompatActivity() {
 
     override fun onBackPressed() {
         var newIntent=Intent(this,Start::class.java)
+        GameStateManager.firstTouch=false
+        GameStateManager.running=true
+        GameStateManager.points=0
         startActivity(newIntent)
         super.onBackPressed()
     }
