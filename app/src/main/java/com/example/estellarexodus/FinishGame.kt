@@ -17,10 +17,15 @@ class FinishGame : AppCompatActivity() {
         var textCoins=findViewById<TextView>(R.id.coins)
         var reload=findViewById<Button>(R.id.reload)
         var sharedPreferences=PreferenceManager.getDefaultSharedPreferences(this)
-        var coins=sharedPreferences.getInt("coins",0)
+        var totalCoins=sharedPreferences.getInt("coins",0)
+        totalCoins+=GameStateManager.coins
+        sharedPreferences.edit().apply{
+            putInt("coins",totalCoins)
+            apply()
+        }
 
         textPoints.text=textPoints.text.toString() + " "+GameStateManager.points.toString()
-        textCoins.text=textCoins.text.toString()+" "+coins.toString()
+        textCoins.text=textCoins.text.toString()+" "+GameStateManager.coins.toString()
 
         reload.setOnClickListener {
             GameStateManager.firstTouch=false

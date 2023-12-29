@@ -145,8 +145,8 @@ class CoinsAndPoints(context: Context) {
     private fun handleCollisionWithShip(mainLayout: ViewGroup,view: View,star:Boolean) {
         mainLayout.removeView(view)
         var newView = TextView(context)
-        var sharedPreferences=PreferenceManager.getDefaultSharedPreferences(context)
-        var coins=sharedPreferences.getInt("coins",0)
+        var coins=0
+
 
         if (star) {
             newView.text = "+100"
@@ -167,10 +167,8 @@ class CoinsAndPoints(context: Context) {
         }else{
             newView.text = "+1 Coin"
             coins+=1
-            sharedPreferences.edit().apply {
-                putInt("coins",coins)
-                apply()
-            }
+            GameStateManager.coins=coins
+
             newView.x = view.x
             newView.y = view.y
 

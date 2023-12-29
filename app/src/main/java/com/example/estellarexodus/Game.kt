@@ -2,10 +2,12 @@ package com.example.estellarexodus
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.PowerManager
+import android.preference.PreferenceManager
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -21,6 +23,8 @@ class Game : AppCompatActivity() {
     private var wakeLock: PowerManager.WakeLock? = null
     private lateinit var coinsAndStars:CoinsAndPoints
     private lateinit var pointsView: TextView
+    private var coins=0
+    private lateinit var coinsText:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +32,8 @@ class Game : AppCompatActivity() {
 
         var initialText=findViewById<TextView>(R.id.initialText)
         var touchImage=findViewById<ImageView>(R.id.touchImage)
+        coinsText=findViewById<TextView>(R.id.coinsText)
+
         val context=this
         // Get an instance of the PowerManager.
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
@@ -132,6 +138,8 @@ class Game : AppCompatActivity() {
             override fun run() {
                 if (GameStateManager.running){
                     GameStateManager.points += 1
+                    coins=GameStateManager.coins
+                    coinsText.text=coins.toString()
                     pointsView.text=GameStateManager.points.toString()
                     handler.postDelayed(this,1)
                 }
