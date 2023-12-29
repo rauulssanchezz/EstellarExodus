@@ -8,11 +8,8 @@ import android.os.Handler
 import android.os.PowerManager
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
-import androidx.core.view.allViews
 import kotlin.random.Random
 
 class Game : AppCompatActivity() {
@@ -23,7 +20,6 @@ class Game : AppCompatActivity() {
     var time:Long=650
     private var wakeLock: PowerManager.WakeLock? = null
     private lateinit var coinsAndStars:CoinsAndPoints
-    private var points=0
     private lateinit var pointsView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {

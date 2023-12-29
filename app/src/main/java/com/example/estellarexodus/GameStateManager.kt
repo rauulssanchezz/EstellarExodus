@@ -1,7 +1,5 @@
 package com.example.estellarexodus
 
-import android.widget.TextView
-
 class GameStateManager {
     companion object {
         var ship: Ship? = null

@@ -1,6 +1,5 @@
 package com.example.estellarexodus
 
-import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
