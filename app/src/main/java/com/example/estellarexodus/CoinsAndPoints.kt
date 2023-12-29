@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
 import android.os.Handler
+import android.preference.PreferenceManager
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -143,10 +144,33 @@ class CoinsAndPoints(context: Context) {
 
     private fun handleCollisionWithShip(mainLayout: ViewGroup,view: View,star:Boolean) {
         mainLayout.removeView(view)
+        var newView = TextView(context)
+        var sharedPreferences=PreferenceManager.getDefaultSharedPreferences(context)
+        var coins=sharedPreferences.getInt("coins",0)
+
         if (star) {
-            var newView = TextView(context)
             newView.text = "+100"
             GameStateManager.points += 100
+            newView.x = view.x
+            newView.y = view.y
+
+            handler.post(animationPoints(newView))
+
+            mainLayout.addView(newView)
+
+            GlobalScope.launch {
+                delay(1000)
+                (context as? Activity)?.runOnUiThread {
+                    mainLayout.removeView(newView)
+                }
+            }
+        }else{
+            newView.text = "+1 Coin"
+            coins+=1
+            sharedPreferences.edit().apply {
+                putInt("coins",coins)
+                apply()
+            }
             newView.x = view.x
             newView.y = view.y
 

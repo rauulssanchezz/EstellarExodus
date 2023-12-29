@@ -5,4 +5,5 @@
     <string name="reiniciar">REINICIAR</string>
     <string name="puntuaci_n">PUNTUACIÓN:</string>
     <string name="game_over">GAME OVER</string>
+    <integer name="coins">0</integer>
 </resources>

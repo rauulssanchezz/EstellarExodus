@@ -3,6 +3,7 @@ package com.example.estellarexodus
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.widget.Button
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -13,9 +14,13 @@ class FinishGame : AppCompatActivity() {
         setContentView(R.layout.activity_finish_game)
 
         var textPoints=findViewById<TextView>(R.id.points)
+        var textCoins=findViewById<TextView>(R.id.coins)
         var reload=findViewById<Button>(R.id.reload)
+        var sharedPreferences=PreferenceManager.getDefaultSharedPreferences(this)
+        var coins=sharedPreferences.getInt("coins",0)
 
         textPoints.text=textPoints.text.toString() + " "+GameStateManager.points.toString()
+        textCoins.text=textCoins.text.toString()+" "+coins.toString()
 
         reload.setOnClickListener {
             GameStateManager.firstTouch=false
