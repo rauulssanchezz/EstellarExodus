@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:text="@string/puntuaci_n"
+        android:text="POINTS:"
         android:textSize="18sp"
         android:layout_marginStart="20dp"
         />
@@ -54,7 +54,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/space2"
         android:textColor="@color/white"
-        android:text="@string/monedas"
+        android:text="COINS:"
         android:textSize="18sp"
         android:layout_marginStart="20dp"
         />
@@ -74,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/space3"
         android:backgroundTint="@color/naranja"
-        android:text="@string/reiniciar"
+        android:text="RESTART"
         android:textColor="@color/white"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

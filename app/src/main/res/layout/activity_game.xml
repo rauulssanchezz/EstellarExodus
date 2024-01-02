@@ -56,7 +56,7 @@
             android:id="@+id/initialText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Toca para iniciar"
+            android:text="TOUCH TO START"
             android:gravity="center"
             android:textColor="@color/softwhite"
             android:textSize="30sp"

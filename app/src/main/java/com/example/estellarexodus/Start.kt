@@ -12,10 +12,16 @@ class Start : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
-        val button=findViewById<Button>(R.id.start)
-        button.setOnClickListener {
+        val shop=findViewById<Button>(R.id.shop)
+        val start=findViewById<Button>(R.id.start)
+        start.setOnClickListener {
             val newintent= Intent(this,Game::class.java)
             startActivity(newintent)
+        }
+
+        shop.setOnClickListener {
+            val newIntent=Intent(this,Shop::class.java)
+            startActivity(newIntent)
         }
 
         MyMediaPlayer.loadSong(this,R.raw.start_song)

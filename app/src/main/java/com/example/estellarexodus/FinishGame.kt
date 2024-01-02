@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.widget.Button
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 
 class FinishGame : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

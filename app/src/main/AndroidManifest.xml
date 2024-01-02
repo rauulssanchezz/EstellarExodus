@@ -15,6 +15,9 @@
         android:theme="@style/Theme.EstellarExodus"
         tools:targetApi="31">
         <activity
+            android:name=".Shop"
+            android:exported="false" />
+        <activity
             android:name=".FinishGame"
             android:exported="false" />
         <activity

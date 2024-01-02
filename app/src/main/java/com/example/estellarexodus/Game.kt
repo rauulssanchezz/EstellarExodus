@@ -2,12 +2,10 @@ package com.example.estellarexodus
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.PowerManager
-import android.preference.PreferenceManager
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -218,6 +216,9 @@ class Game : AppCompatActivity() {
 
     override fun onBackPressed() {
         val newintent= Intent(this,Start::class.java)
+        GameStateManager.firstTouch=false
+        GameStateManager.running=true
+        GameStateManager.points=0
         startActivity(newintent)
         super.onBackPressed()
     }

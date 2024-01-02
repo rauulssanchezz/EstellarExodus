@@ -28,9 +28,21 @@
         android:backgroundTint="@color/blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/shop"
+        android:layout_marginBottom="20dp"
+        android:text="START"
+        android:textColor="@color/white"
+        />
+    <Button
+        android:id="@+id/shop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="50dp"
-        android:text="@string/start"
+        android:text="SHOP"
         android:textColor="@color/white"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
