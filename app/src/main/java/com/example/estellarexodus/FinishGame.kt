@@ -35,6 +35,7 @@ class FinishGame : AppCompatActivity() {
         val applyBonus = shouldApplyBonus(totalX2)
 
         if (applyBonus) {
+            totalX2--
             doublePoints()
             showBonus()
         }
@@ -42,6 +43,7 @@ class FinishGame : AppCompatActivity() {
         totalCoins+=GameStateManager.coins
         sharedPreferences.edit().apply{
             putInt("coins",totalCoins)
+            putInt("x2",totalX2)
             apply()
         }
 
