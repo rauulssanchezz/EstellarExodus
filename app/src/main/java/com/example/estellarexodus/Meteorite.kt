@@ -5,13 +5,15 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.res.Resources
+import android.preference.PreferenceManager
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import android.widget.ImageView
 import kotlin.random.Random
 
 class Meteorite (val res: Resources, val meteorite: ImageView, var width: Int, var heigh: Int) {
-    fun getPositionDuringAnimation(animatedValue: Float,x: Float): Pair<Float, Float> {
+    var shieldCollisionHandled: Boolean = false
+    fun getPositionDuringAnimation(animatedValue: Float, x: Float): Pair<Float, Float> {
         val x = x
         val y = meteorite.y + animatedValue
         return Pair(x, y)
@@ -44,13 +46,15 @@ class Meteorite (val res: Resources, val meteorite: ImageView, var width: Int, v
         animation.interpolator = LinearInterpolator()
         animation.addUpdateListener { animation ->
             val animatedValue = animation.animatedValue as Float
-            val newPosition = this.getPositionDuringAnimation(animatedValue,meteoriteClone.x)
+            var newPosition = this.getPositionDuringAnimation(animatedValue,meteoriteClone.x)
 
-            if (CheckColisions.checkCollisionWithMeteorite(newPosition)) {
+            if (!this.shieldCollisionHandled && CheckColisions.checkCollisionWithMeteorite(newPosition)) {
                 mainLayout.removeView(meteoriteClone)
-                CheckColisions.handleCollisionWithMeteorite()
+                CheckColisions.handleCollisionWithMeteorite(context, mainLayout, meteoriteClone)
+                this.shieldCollisionHandled = true
             }
-        }
+            }
+
         animation.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
                 // Remove the meteorite at the end of the animation.

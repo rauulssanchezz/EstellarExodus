@@ -95,6 +95,19 @@
                 android:layout_marginBottom="5dp"
                 />
             <TextView
+                android:id="@+id/totalShields"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/iconShield"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/descriptionShield"
+                android:text="0"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_marginEnd="15dp"
+                />
+            <TextView
                 android:id="@+id/nameShield"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -114,7 +127,7 @@
                 android:layout_marginStart="30dp"
                 android:textSize="18sp"
                 android:textColor="@color/black"
-                android:text="The shield has a single use,\nit allows you to survive a collision\nwith a meteorite."
+                android:text="The shield has a single use,\nit allows you to survive a\ncollision with a meteorite."
                 />
             <TextView
                 android:id="@+id/priceShield"
@@ -182,6 +195,19 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginBottom="5dp"
+                />
+            <TextView
+                android:id="@+id/totalX2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/iconx2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/descriptionx2"
+                android:text="0"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_marginEnd="15dp"
                 />
             <TextView
                 android:id="@+id/namex2"
@@ -271,6 +297,19 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginBottom="5dp"
+                />
+            <TextView
+                android:id="@+id/totalMagnets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/iconMagnet"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/descriptionMagnet"
+                android:text="0"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_marginEnd="15dp"
                 />
             <TextView
                 android:id="@+id/nameMagnet"

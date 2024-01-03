@@ -6,4 +6,7 @@
     <string name="puntuaci_n">PUNTUACIÓN:</string>
     <string name="game_over">GAME OVER</string>
     <integer name="coins">0</integer>
+    <integer name="shields">0</integer>
+    <integer name="x2">0</integer>
+    <integer name="magnets">0</integer>
 </resources>

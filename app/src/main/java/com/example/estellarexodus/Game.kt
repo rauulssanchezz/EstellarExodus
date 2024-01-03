@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.PowerManager
+import android.preference.PreferenceManager
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -23,14 +24,17 @@ class Game : AppCompatActivity() {
     private lateinit var pointsView: TextView
     private var coins=0
     private lateinit var coinsText:TextView
+    lateinit var shieldImage:ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
+        var sharedPreferences=PreferenceManager.getDefaultSharedPreferences(this)
         var initialText=findViewById<TextView>(R.id.initialText)
         var touchImage=findViewById<ImageView>(R.id.touchImage)
-        coinsText=findViewById<TextView>(R.id.coinsText)
+        shieldImage=findViewById(R.id.shield)
+        var shields=sharedPreferences.getInt("shields",0)
 
         val context=this
         // Get an instance of the PowerManager.
@@ -42,6 +46,16 @@ class Game : AppCompatActivity() {
         )
         // Ensure that the screen stays on while the application is in the foreground.
         wakeLock?.acquire()
+
+        if (shields>0){
+            GameStateManager.shield=true
+            shieldImage.visibility=ImageView.VISIBLE
+        }else{
+            GameStateManager.shield=false
+            shieldImage.visibility=ImageView.INVISIBLE
+        }
+
+        coinsText=findViewById<TextView>(R.id.coinsText)
 
         //MainFrameView
         mainLayout = findViewById(R.id.mainLayout)
@@ -118,7 +132,7 @@ class Game : AppCompatActivity() {
                     shipImage.focusable=View.FOCUSABLE
                     cont++
                 }
-                handler.postDelayed(this,16)
+                handler.postDelayed(this,8)
             }
         }
 
@@ -162,6 +176,9 @@ class Game : AppCompatActivity() {
         val runnable=object : Runnable {
             override fun run() {
                 if (GameStateManager.running) {
+                    if (shieldImage.visibility==ImageView.VISIBLE&&!GameStateManager.shield){
+                        shieldImage.visibility=ImageView.INVISIBLE
+                    }
                     var pos = Random.nextInt(0, meteorites.size)
                     meteorites[pos].launchMeteorite(mainLayout, context)
                     updateTime()

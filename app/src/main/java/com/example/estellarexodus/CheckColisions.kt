@@ -1,13 +1,29 @@
 package com.example.estellarexodus
 
+import android.content.Context
 import android.graphics.Rect
+import android.preference.PreferenceManager
+import android.view.ViewGroup
+import android.widget.ImageView
 
 class CheckColisions {
     companion object {
-        fun handleCollisionWithMeteorite() {
-            val ship = GameStateManager.ship
-            ship!!.ship.setImageResource(R.drawable.explosion)
-            GameStateManager.stopRunning()
+        fun handleCollisionWithMeteorite(context:Context,mainLayout:ViewGroup,meteoriteClone: ImageView) {
+            if (!GameStateManager.shield) {
+                val ship = GameStateManager.ship
+                ship!!.ship.setImageResource(R.drawable.explosion)
+                GameStateManager.stopRunning()
+            }else{
+                var sharedPreferences= PreferenceManager.getDefaultSharedPreferences(context)
+                var shields=sharedPreferences.getInt("shields",0)
+                shields--
+                sharedPreferences.edit().apply {
+                    putInt("shields",shields)
+                    apply()
+                }
+                mainLayout.removeView(meteoriteClone)
+                GameStateManager.shield=false
+            }
         }
 
         fun checkCollisionWithMeteorite(meteoritePosition: Pair<Float, Float>): Boolean {
