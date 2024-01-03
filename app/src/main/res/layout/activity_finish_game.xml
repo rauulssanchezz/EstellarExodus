@@ -4,77 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FinishGame">
+    tools:context=".FinishGame"
+    android:id="@+id/view">
 
-    <TextView
-        android:id="@+id/tittle"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/white"
-        android:text="@string/game_over"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:gravity="center"
-        android:textSize="30sp"
-        />
-    <Space
-        android:id="@+id/space1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tittle"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        />
-    <TextView
-        android:id="@+id/points"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/space1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="POINTS:"
-        android:textSize="18sp"
-        android:layout_marginStart="20dp"
-        />
-    <Space
-        android:id="@+id/space2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/points"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        />
-    <TextView
-        android:id="@+id/coins"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/space2"
-        android:textColor="@color/white"
-        android:text="COINS:"
-        android:textSize="18sp"
-        android:layout_marginStart="20dp"
-        />
-    <Space
-        android:id="@+id/space3"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/coins"
-        />
-    <Button
-        android:id="@+id/reload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/space3"
-        android:backgroundTint="@color/naranja"
-        android:text="RESTART"
-        android:textColor="@color/white"
-        />
+        android:padding="16dp"
+        android:background="@color/white"
+        tools:context=".GameResultsActivity">
+
+        <TextView
+            android:id="@+id/textBonus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¡Bonus x2!"
+            android:textSize="18sp"
+            android:textColor="@color/colorBonus"
+            android:gravity="center"
+            android:padding="8dp"
+            android:visibility="gone" />
+
+        <!-- Muestra el resumen de los resultados -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GAME OVER!"
+            android:textSize="24sp"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/textPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Points:"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/textCoins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Coins:"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:padding="8dp" />
+
+        <!-- Agrega un botón para reiniciar el juego -->
+        <Button
+            android:id="@+id/btnRestartGame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RESTART"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="12dp"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
