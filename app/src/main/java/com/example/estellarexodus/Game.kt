@@ -50,8 +50,15 @@ class Game : AppCompatActivity() {
         wakeLock?.acquire()
 
         if (magnets>0){
+            magnets--
             GameStateManager.magnet=true
             magnetImage.visibility=ImageView.VISIBLE
+            sharedPreferences.edit().apply {
+                putInt("magnets",magnets)
+                apply()
+            }
+        }else{
+            GameStateManager.magnet=false
         }
 
         if (shields>0){
