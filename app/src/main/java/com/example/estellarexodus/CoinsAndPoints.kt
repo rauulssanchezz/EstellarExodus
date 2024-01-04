@@ -2,6 +2,7 @@ package com.example.estellarexodus
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Rect
 import android.os.Handler
 import android.view.View
@@ -39,6 +40,10 @@ class CoinsAndPoints(context: Context) {
 
         startAnimationLoop(coinClone, mainLayout)
 
+        if (GameStateManager.magnet) {
+            startAttraction(coinClone, mainLayout)
+        }
+
         startCollisionChecking(coinClone, mainLayout,false)
 
         GlobalScope.launch {
@@ -60,6 +65,10 @@ class CoinsAndPoints(context: Context) {
 
         startAnimationLoop(starClone, mainLayout)
 
+        if (GameStateManager.magnet) {
+            startAttraction(starClone, mainLayout)
+        }
+
         startCollisionChecking(starClone, mainLayout,true)
 
         GlobalScope.launch {
@@ -68,6 +77,44 @@ class CoinsAndPoints(context: Context) {
                 mainLayout.removeView(starClone)
             }
         }
+    }
+
+    private fun startAttraction(view: View, mainLayout: ViewGroup) {
+        handler.post(attractionLoop(view, mainLayout))
+    }
+
+    private fun attractionLoop(view: View, mainLayout: ViewGroup): Runnable {
+        val runnable = object : Runnable {
+            override fun run() {
+                if (view.parent != null) {
+                    attractToShip(view)
+                    handler.postDelayed(this, 16)
+                }
+            }
+        }
+        return runnable
+    }
+
+    private fun attractToShip(view: View) {
+        val ship = GameStateManager.ship?.ship
+        val deltaX = (ship?.x ?: 0f) + ship?.width!! / 2 - (view.x + view.width / 2)
+        val deltaY = (ship.y) - (view.y + view.height / 2)
+
+        val distance = Math.sqrt((deltaX * deltaX + deltaY * deltaY).toDouble()).toFloat()
+
+        if (distance <= dpToPx(200)) { // Ajusta 200 según tu necesidad
+            val directionX = deltaX / distance
+            val directionY = deltaY / distance
+
+            val speed = 8f
+            view.x += speed * directionX
+            view.y += speed * directionY
+        }
+    }
+
+    private fun dpToPx(dp: Int): Float {
+        val scale = Resources.getSystem().displayMetrics.density
+        return dp * scale
     }
 
     private fun startAnimationLoop(view: View, mainLayout: ViewGroup) {

@@ -35,6 +35,8 @@ class Game : AppCompatActivity() {
         var touchImage=findViewById<ImageView>(R.id.touchImage)
         shieldImage=findViewById(R.id.shield)
         var shields=sharedPreferences.getInt("shields",0)
+        var magnets=sharedPreferences.getInt("magnets",0)
+        var magnetImage=findViewById<ImageView>(R.id.magnet)
 
         val context=this
         // Get an instance of the PowerManager.
@@ -46,6 +48,11 @@ class Game : AppCompatActivity() {
         )
         // Ensure that the screen stays on while the application is in the foreground.
         wakeLock?.acquire()
+
+        if (magnets>0){
+            GameStateManager.magnet=true
+            magnetImage.visibility=ImageView.VISIBLE
+        }
 
         if (shields>0){
             GameStateManager.shield=true

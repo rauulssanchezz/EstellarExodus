@@ -93,6 +93,17 @@
             android:src="@drawable/shield"
             android:visibility="invisible"
             />
+        <ImageView
+            android:id="@+id/magnet"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="35dp"
+            android:src="@drawable/magnet"
+            android:visibility="invisible"
+            android:adjustViewBounds="true"
+            />
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

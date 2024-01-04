@@ -8,6 +8,7 @@ class GameStateManager {
         var coins:Int=0
         var firstTouch=false
         var shield=false
+        var magnet=false
         fun initializeShip(ship: Ship) {
             this.ship = ship
         }

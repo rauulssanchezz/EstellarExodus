@@ -49,7 +49,7 @@ class Meteorite (val res: Resources, val meteorite: ImageView, var width: Int, v
             var newPosition = this.getPositionDuringAnimation(animatedValue,meteoriteClone.x)
 
             if (!shieldCollisionHandled && CheckColisions.checkCollisionWithMeteorite(newPosition)) {
-                mainLayout.removeView(meteorite)
+                mainLayout.removeView(meteoriteClone)
                 shieldCollisionHandled = true
                 CheckColisions.handleCollisionWithMeteorite(context)
             }
