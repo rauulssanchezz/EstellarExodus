@@ -74,10 +74,11 @@ class FinishGame : AppCompatActivity() {
             override fun run() {
                 if (newPoints!=goal){
                     newPoints++
-                    textPoints.text="Puntos: $newPoints"
                     view.setOnClickListener {
                         newPoints=goal
+                        textPoints.text="Puntos: $newPoints"
                     }
+                    textPoints.text="Puntos: $newPoints"
                     handler.postDelayed(this,1)
                 }
             }

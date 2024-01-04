@@ -12,7 +12,7 @@ import android.widget.ImageView
 import kotlin.random.Random
 
 class Meteorite (val res: Resources, val meteorite: ImageView, var width: Int, var heigh: Int) {
-    var shieldCollisionHandled: Boolean = false
+    private var shieldCollisionHandled: Boolean = false
     fun getPositionDuringAnimation(animatedValue: Float, x: Float): Pair<Float, Float> {
         val x = x
         val y = meteorite.y + animatedValue
@@ -48,10 +48,10 @@ class Meteorite (val res: Resources, val meteorite: ImageView, var width: Int, v
             val animatedValue = animation.animatedValue as Float
             var newPosition = this.getPositionDuringAnimation(animatedValue,meteoriteClone.x)
 
-            if (!this.shieldCollisionHandled && CheckColisions.checkCollisionWithMeteorite(newPosition)) {
-                mainLayout.removeView(meteoriteClone)
-                CheckColisions.handleCollisionWithMeteorite(context, mainLayout, meteoriteClone)
-                this.shieldCollisionHandled = true
+            if (!shieldCollisionHandled && CheckColisions.checkCollisionWithMeteorite(newPosition)) {
+                mainLayout.removeView(meteorite)
+                shieldCollisionHandled = true
+                CheckColisions.handleCollisionWithMeteorite(context)
             }
             }
 
@@ -59,6 +59,7 @@ class Meteorite (val res: Resources, val meteorite: ImageView, var width: Int, v
             override fun onAnimationEnd(animation: Animator) {
                 // Remove the meteorite at the end of the animation.
                 mainLayout.removeView(meteoriteClone)
+                shieldCollisionHandled=false
             }
         })
         animation.start()

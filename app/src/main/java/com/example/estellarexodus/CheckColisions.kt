@@ -8,7 +8,7 @@ import android.widget.ImageView
 
 class CheckColisions {
     companion object {
-        fun handleCollisionWithMeteorite(context:Context,mainLayout:ViewGroup,meteoriteClone: ImageView) {
+        fun handleCollisionWithMeteorite(context:Context) {
             if (!GameStateManager.shield) {
                 val ship = GameStateManager.ship
                 ship!!.ship.setImageResource(R.drawable.explosion)
@@ -21,7 +21,6 @@ class CheckColisions {
                     putInt("shields",shields)
                     apply()
                 }
-                mainLayout.removeView(meteoriteClone)
                 GameStateManager.shield=false
             }
         }
